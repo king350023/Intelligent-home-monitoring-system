@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html>
+<head> 
+	<title>居家空氣危害監測</title>
+	<!-- 以下這5行是引用bootstrap及jquery CDN (Content Delivery Network)的標準動作 -->
+	 <meta charset="utf-8"> <!-- 指定內文的編碼，若要顯示中文，通常用utf-8這個unicode編碼 -->
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<!-- 以下這個匿名函數是jquery的ready事件處理方法，當網頁Ready好的就會自動執行 -->
+	<!-- 因此，可以把要註冊的所有事件處理函數及需要先執行的命令放在這個函數內 -->
+
+		
+ <script src="/socket.io/socket.io.js"></script>
+  
+  <!-- 以下這個匿名函數是jquery的ready事件處理方法，當網頁Ready好的就會自動執行 -->
+  <!-- 因此，可以把要註冊的所有事件處理函數及需要先執行的命令放在這個函數內 -->
+  <script>
+  
+    
+    /*建立Web Socket連線*/
+    var socket = io.connect();
+    
+    // 註冊收到從Web Socket連線送來date事件需要執行的工作
+   /* socket.on('envdata', function(data) { 
+      $('#tem').val(data.temperature); 
+      $('#hum').val(data.humidity);
+      
+    });*/
+    
+    // 註冊收到從Web Socket連線送來date事件需要執行的工作
+    socket.on('currenttime', function(data) {
+      $('#time').val(data.date);
+    });
+    
+    $(function(){
+			<!-- 幫id為btn11的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn1').click(function(){
+				$.post(
+					'/control_arduino/2',
+					function(data){
+						$('#command').val(data.cmd);
+						$('#GAS').val(data.value1);
+					}
+				);
+			});
+
+
+			
+			$('#btn2').click(function(){
+				$.post(
+					'/control_arduino/3',
+					function(data){
+						$('#command').val(data.cmd);
+						$('#CO').val(data.value1);
+					}
+				);
+			});
+			
+			
+			$('#btn3').click(function(){
+				$.post(
+					'/control_arduino/4',
+					function(data){
+						$('#command').val(data.cmd);
+						$('#temperature').val(data.value1);
+						$('#humidity').val(data.value2);
+					}
+				);
+			});
+      /*<!-- 在jquery及nodejs通常會使用匿名函數作為事件處理方法，比較簡潔 -->
+        <!-- 幫id為btn1的按鈕標籤註冊了點擊事件的處理方法 -->
+      $('#btn4').click(function(){
+        $.get(
+          '/get_sensors/start',
+          function(data){ //顯示監測狀態訊息
+            $('#monitoringstatus').val(data.message);
+          }
+        );
+      });
+      
+      <!-- 幫id為btn1的按鈕標籤註冊了點擊事件的處理方法 -->
+      $('#btn5').click(function(){
+        $.get(
+          '/get_sensors/stop',
+          function(data){ //顯示監測狀態訊息
+            $('#monitoringstatus').val(data.message);
+          }
+        );
+      });*/
+      
+      
+      <!-- 幫id為btn5的按鈕標籤註冊了點擊事件的處理方法 -->
+      $('#btn8').click(function(){
+         window.location.href = '/';
+      });
+      
+    })
+  </script>
+  <style>
+    input {font-size:12px}
+  </style>
+	</script>
+		<style type="text/css">
+#TestImg1{
+    vertical-align:text-top;
+}
+	</style>
+</head>
+
+<body class="bg-success">
+<nav  style="font-family:Microsoft JhengHei">
+<div class="container">
+	
+		
+
+		<h3 class="text-danger"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;居家空氣危害監測</b></h3>
+		 <!-- 用來顯示日期資訊之區域 -->
+  <center>
+    <h4>
+    <label for="time" class="text-primary">現在時間：</label>
+    <input type="text" id="time" size="20" style="font-size:16px" readonly="true"><br/>
+    </h4>
+  </center>
+    <!-- 讀取智慧屋室內溫、濕度值及水的酸鹼度UI -->
+
+    
+   <!-- <h6>
+    <button id="btn4" class="btn btn-danger btn-lg">啟動監測</button>
+    <button id="btn5" class="btn btn-danger btn-lg">停止監測</button><br/>
+    <label for="monitoringstatus" class="text-primary">環境參數監測狀態：</label>
+    <input type="text" id="monitoringstatus" size="30" style="font-size:16px" readonly="true"><br/>
+    <label for="temperature" class="text-primary">溫度：</label>
+    <input type="text" id="tem" size="6" style="font-size:16px" readonly="true">
+    <label for="humidity" class="text-primary">濕度：</label>
+    <input type="text" id="hum" size="6" style="font-size:16px" readonly="true"><br/>
+    
+    </h6>
+ -->
+
+
+
+		<h4>
+		<label for="leds_status" class="text-primary"><b>溫度：</b></label>
+		<input type="text" id="temperature" size="8" style="font-size:16px" readonly="true">
+		<label for="leds_status" class="text-primary"><b>°C</b></label><b>&nbsp;</b>
+		<label for="leds_status" class="text-primary"><b>濕度:</b></label>
+		<input type="text" id="humidity" size="8" style="font-size:16px" readonly="true">
+		<label for="leds_status" class="text-primary"><b>%</b></label><b>&nbsp;</b>
+		<b>&nbsp;&nbsp;</b><button id="btn3" class="btn btn-success btn-lg">即時讀取溫溼度</button><br>
+		<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(當溫度大於23度 風扇會自動打開🔛)</b>
+		<br>
+	    <p></p><label for="leds_status" class="text-primary"><b>即時CO濃度檢測&nbsp;&nbsp;&nbsp;&nbsp;</b></label>		
+		<input type="text" id="CO" size="8" style="font-size:16px" readonly="true">
+		<label for="leds_status" class="text-primary"><b>ppm</b></label><b>&nbsp;</b>
+		<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><button id="btn2" class="btn btn-success btn-lg">即時讀取CO濃度</button><br>
+		<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(當濃度大於150ppm 警報器會自動警示🆘)</b><br>
+		<p></p><label for="leds_status" class="text-primary"><b>即時GAS濃度檢測&nbsp;&nbsp;</b></label>		
+		<input type="text" id="GAS" size="8" style="font-size:16px" readonly="true">
+		<label for="leds_status" class="text-primary"><b>ppm</b></label><b>&nbsp;</b>
+		<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><button id="btn1" class="btn btn-success btn-lg">即時讀取GAS濃度</button><br>
+		<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(當濃度大於700ppm 警報器會自動警示🆘)</b><br><br>
+		<a><img id="TestImg1" align="top" src="/images/87.JPG" class="imgIndex"></a>
+		<div style="top:200px;right:100px;position:absolute;">
+		<img id="streaming"  width="550" height="350" style="border-style: solid;border-width: 5px 5px 5px 5px" alt="No Video Streaming Available!">
+	    </div>
+		</div>
+
+		</h4>
+<div class="container">
+  
+ 
+ 
+  
+  
+  <!-- 回首頁按鈕 -->
+
+  <!--<center>
+  <div> 
+    <button id="btn8" class="btn btn-info btn-md"><b>回首頁</b></button>
+  </div>
+  </center>-->
+<script>
+	// 建立影像串流伺服器網址
+	// 請將此URL改為http://IP_RPi:8000/stream.mjpg';
+	// 例如IP of PRi = 10.0.2.103，則URL=http://10.0.2.103:8000/stream.mjpg';
+	var web_video_streaming_url = 'http://172.20.10.5:8000/stream.mjpg';
+	// 取得顯示即時影像串流之元素(element)
+	var streamingelement = document.getElementById("streaming");
+	
+	// 顯示影像串流副程式
+	function loadstreaming()
+	{
+		streamingelement.src = window.web_video_streaming_url;
+	}
+	
+	// 不要顯示影像串流副程式
+	function offloadstreaming()
+	{
+		streamingelement.src = "";
+	}
+	
+	// 讓網頁載入時顯示影像串流
+	loadstreaming();    
+</script>
+
+
+</html>
+
+

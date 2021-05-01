@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html>
+<head> 
+	<title>監視遙控車</title> 
+	<!-- 以下這5行是引用bootstrap及jquery CDN (Content Delivery Network)的標準動作 -->
+	<meta charset="utf-8"> <!-- 指定內文的編碼，若要顯示中文，通常用utf-8這個unicode編碼 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<!-- 自動從index.js接收伺服器的ip物件，例如server ip=10.0.2.205，則serverip0=10, serverip1=0, serverip2=2, serverip3=205  -->
+	<!-- 再由這4個變數去合成server ip: ip_server=serverip0 + '.' + serverip1 + '.' + serverip2 + '.' + serverip3 -->
+	<!-- 若local部署時，nodejs的port為3000，webvideostreaming的port為8000;若網際網路部署時，則改為AP中設定的對外公開port -->
+	
+	<!-- 以下這個匿名函數是jquery的ready事件處理方法，當網頁Ready好的就會自動執行 -->
+	<!-- 因此，可以把要註冊的所有事件處理函數及需要先執行的命令放在這個函數內 -->
+	<script>
+		
+		$(function(){
+		 
+			$('#btn9').click(function(){
+				// 先關掉picamera，再回首頁
+				$.post(
+					'/web_video_streaming/off',
+					function(data){
+						window.location.href = '/';				
+					}
+				);
+			});
+			
+			<!-- 幫id為btn10的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn10').click(function(){
+				$.post(
+					'/control_arduino2/1',
+					function(data){
+						$('#command').val( data.cmd);
+					}
+				);
+			});
+			
+			<!-- 幫id為btn11的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn11').click(function(){
+				$.post(
+					'/control_arduino2/2',
+					function(data){
+						$('#command').val(data.cmd);
+					}
+				);
+			});
+			
+			<!-- 幫id為btn12的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn12').click(function(){
+				$.post(
+					'/control_arduino2/3',
+					function(data){
+						$('#command').val(data.cmd);
+					}
+				);
+			});
+			
+			<!-- 幫id為btn13的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn13').click(function(){
+				$.post(
+					'/control_arduino2/4',
+					function(data){
+						$('#command').val(data.cmd);
+					
+					}
+				);
+			});
+
+			$('#btn14').click(function(){
+				$.post(
+					'/control_arduino2/5',
+					function(data){
+						$('#command').val(data.cmd);
+					
+					}
+				);
+			});
+
+				<!-- 幫id為btn2的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn15').click(function(){
+				$.post(
+					'/web_video_streaming2/on',
+					function(data){
+						loadstreaming();  // 顯示影像串流
+						//alert(data.message); // 顯示狀況在警告視窗中					
+					}
+				);
+			});
+			
+			<!-- 幫id為btn3的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn16').click(function(){
+				$.post(
+					'/web_video_streaming2/off',
+					function(data){
+						offloadstreaming();  // 不要顯示影像串流
+						//alert(data.message); // 顯示狀況在警告視窗中						
+					}
+				);
+			});
+			
+		})
+
+
+	</script>
+	<style>
+		input {font-size:12px}
+	</style>
+</head>
+
+<body class="bg-warning">
+<div class="container">
+	
+	
+	<center>
+	<h1 class="text-danger"><b>監視遙控車</b></h1>
+<tr>
+  <td> </td>
+  <td align="center">
+   <button id="btn13" class="btn btn-success btn-lg">  前進 </button>
+  </td>
+  <td> </td>
+</tr>
+<tr>
+  <td>
+  	<button id="btn12" class="btn btn-success btn-lg">  後退 </button>
+  </td>
+  <td align="center">
+   	<button id="btn10" class="btn btn-success btn-lg">右轉 </button>
+  </td>
+  <td>
+  	<button id="btn11" class="btn btn-success btn-lg">  左轉</button>
+  </td>
+</tr>
+<tr>
+  <td> </td>
+  <td align="center">
+    <button id="btn14" class="btn btn-success btn-lg"> 停止</button><br>
+</td>
+  <td> </td>
+</tr>
+<button id="btn2" class="btn btn-success btn-lg">啟動即時影像串流</b></button>
+		<button id="btn3" class="btn btn-success btn-lg">關閉即時影像串流</b></button> <br>
+	<img id="streaming" width="430" height="320" style="border-style: solid;border-width: 5px 5px 5px 5px" alt="No Video Streaming Available!">
+	</center>
+
+	<!-- 回首頁按鈕 -->
+	<center>
+	<h4>
+		<button id="btn9" class="btn btn-info btn-md"><b>回首頁</b></button> <br/>
+	</h4>
+	</center>
+</div>
+<script>
+	// 建立影像串流伺服器網址
+	// 請將此URL改為http://IP_RPi:8000/stream.mjpg';
+	// 例如IP of PRi = 10.0.2.103，則URL=http://10.0.2.103:8000/stream.mjpg';
+	var web_video_streaming_url = 'http://172.20.10.5:8000/stream.mjpg';
+	// 取得顯示即時影像串流之元素(element)
+	var streamingelement = document.getElementById("streaming");
+	
+	// 顯示影像串流副程式
+	function loadstreaming()
+	{
+		streamingelement.src = window.web_video_streaming_url;
+	}
+	
+	// 不要顯示影像串流副程式
+	function offloadstreaming()
+	{
+		streamingelement.src = "";
+	}
+	
+	// 讓網頁載入時顯示影像串流
+	loadstreaming();    
+</script>
+</body>
+</html>

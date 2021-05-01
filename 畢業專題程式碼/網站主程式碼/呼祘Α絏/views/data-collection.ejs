@@ -1,0 +1,135 @@
+<!DOCTYPE html> 
+
+<html> 
+<head> 
+	<title>居家即時溫溼度感應</title>
+	<!-- 以下這5行是引用bootstrap及jquery CDN (Content Delivery Network)的標準動作 -->
+	<meta charset="utf-8"> <!-- 指定內文的編碼，若要顯示中文，通常用utf-8這個unicode編碼 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<!-- 以下是引用Hightcharts之CDN -->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	
+	<!-- 以下這個匿名函數是jquery的ready事件處理方法，當網頁Ready好的就會自動執行 -->
+	<!-- 因此，可以把要註冊的所有事件處理函數及需要先執行的命令放在這個函數內     click 事件通常會在設備的按鈕（通常是滑鼠按鍵）點擊元素時執行。-->
+	<script>
+		$(function(){
+			
+			<!-- 幫id為btn1的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn1').click(function(){
+				$.post(
+					'/save_retrieve_thdata',
+					function(data){
+						$('#RoomTemp').val(data[0].temperature);
+						$('#RoomHumid').val(data[0].humidity);
+						
+						var tempa = new Array();					
+						var humida = new Array();
+						
+						for (i=0; i< data.length; i++)
+						{	
+							tempa[i] = Number(data[i].temperature);
+							humida[i]= Number(data[i].humidity);	
+						}
+						plotcharts(tempa, humida);
+					}
+				);
+			});
+			
+			
+			
+		
+			
+			function plotcharts(tempa, humida)
+			{
+				// 繪製Highcharts圖測試
+				Highcharts.chart('container', {
+					chart: {
+						type: 'line'
+					},
+					legend: {
+						itemStyle: {
+							font: '20pt 標楷體',
+							color: '#222'
+						},
+						itemHoverStyle: {
+							color: 'red'
+						},
+						itemHiddenStyle: {
+							color: '#444'
+						}
+					},
+					title: {
+						text: '最近10筆溫度及濕度',
+						style: {color:'red', fontSize: '30px', fontFamily: '標楷體'}
+					},
+					
+					xAxis: {
+						categories: ['第1筆', '第2筆', '第3筆', '第4筆', '第5筆', '第6筆', '第7筆', '第8筆', '第9筆', '第10筆'],
+						labels: {
+							style: {color:'green', fontSize: '20px', fontFamily: '標楷體'}
+						}
+					},
+					yAxis: {
+						title: {
+							text: '溫度(°C) 濕度(%)',
+							style: {color:'blue', fontSize: '20px', fontFamily: '標楷體'}
+						}
+					},
+					plotOptions: {
+						line: {
+							dataLabels: {
+								enabled: true
+							},
+							enableMouseTracking: true
+						}
+					},
+					series: [{
+						name: '溫度',
+						style: {fontSize: '20px', fontFamily: '標楷體'},
+						data: tempa
+					}, {
+						name: '濕度',
+						style: {fontSize: '20px', fontFamily: '標楷體'},
+						data: humida
+					}]
+				});
+			}
+			//
+		})
+	</script>
+	
+	<style>
+		input {font-size:12px}
+	</style>
+</head>
+
+<body class="bg-success">
+<nav  style="font-family:Microsoft JhengHei">
+<div class="container">
+
+	<center>
+		<h2 class="text-danger"><b>感測室內溫溼度</b></h2>
+		<h3 class="text-primar"><b>顯示即時溫濕度</b>
+		<button id="btn1" class="btn btn-success btn-md"><b>感測</b></button></h3>
+        <h4>
+		<input type="text" size="10" id="RoomTemp"><b class="text-warning">溫度(°C)
+		<input type="text" size="10" id="RoomHumid"><b class="text-warning">溼度(%)</b><br/>
+		<br/>
+		</h4>
+		
+	</center>
+	</nav>
+
+	<center>
+	
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	
+	</center>
+
+</body>
+</html>

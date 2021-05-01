@@ -1,0 +1,197 @@
+<!DOCTYPE html> <!-- !DOCTYPE html是宣告這個網頁是基於HTML5所寫的 -->
+<html> <!-- html為網頁的起始標籤，其內包含了表頭head及內容body兩部分 -->
+<!---->
+<!-- head為網頁的表頭，通常將CSS、引用bootstrap、jquery等meta data，以及javascript函數放在表頭內 -->
+<!---->
+<head> 
+	<title>居家防盜警報</title> <!-- 網頁標題 -->
+	<!-- 以下這5行是引用bootstrap及jquery CDN (Content Delivery Network)的標準動作 -->
+	<meta charset="utf-8"> <!-- 指定內文的編碼，若要顯示中文，通常用utf-8這個unicode編碼 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  
+	<!-- 自動從index.js接收伺服器的ip物件，例如server ip=10.0.2.205，則serverip0=10, serverip1=0, serverip2=2, serverip3=205  -->
+	<!-- 再由這4個變數去合成server ip: ip_server=serverip0 + '.' + serverip1 + '.' + serverip2 + '.' + serverip3 -->
+	<!-- 若local部署時，nodejs的port為3000，webvideostreaming的port為8000;若網際網路部署時，則改為AP中設定的對外公開port -->
+	<script>
+		var serverip0 = <%= serverip0 %> ;
+		var serverip1 = <%= serverip1 %>;
+		var serverip2 = <%= serverip2 %> ;
+		var serverip3 = <%= serverip3 %>;
+		ip_server = serverip0 + '.' + serverip1 + '.' + serverip2 + '.' + serverip3;
+		var port_webvideostreaming = '8000';
+	</script>
+	
+	<!-- 以下這個匿名函數是jquery的ready事件處理方法，當網頁Ready好的就會自動執行 -->
+	<!-- 因此，可以把要註冊的所有事件處理函數及需要先執行的命令放在這個函數內 -->
+	<script>
+		$(function(){
+		    <!-- 幫id為btn1的按鈕標籤註冊了點擊事件的處理方法 -->
+			<!-- 在jquery及nodejs通常會使用匿名函數作為事件處理方法，比較簡潔 -->
+			
+			<!-- 幫id為btn1的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn1').click(function(){
+				$.post(
+					'/store_email/' + $('#email').val(),
+					function(data){
+						$('#email_status').val(data.message);
+					}
+				);
+			});
+			
+			<!-- 幫id為btn2的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn2').click(function(){
+				$.post(
+					'/web_video_streaming/on',
+					function(data){
+						loadstreaming();  // 顯示影像串流
+						//alert(data.message); // 顯示狀況在警告視窗中					
+					}
+				);
+			});
+			
+			<!-- 幫id為btn3的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn3').click(function(){
+				$.post(
+					'/web_video_streaming/off',
+					function(data){
+						offloadstreaming();  // 不要顯示影像串流
+						//alert(data.message); // 顯示狀況在警告視窗中						
+					}
+				);
+			});
+			
+			<!-- 幫id為btn4的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn4').click(function(){
+				$.post(
+					'/take_picture',
+					function(data){
+						location.reload(true); // 重新載入網頁
+						//alert(data.message); // 顯示狀況在警告視窗中
+					}
+				);
+			});
+			
+		
+			<!-- 幫id為btn9的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn9').click(function(){
+				// 先關掉picamera，再回首頁
+				$.post(
+					'/web_video_streaming/off',
+					function(data){
+						window.location.href = '/';				
+					}
+				);
+			});
+			
+			<!-- 幫id為btn10的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn10').click(function(){
+				$.post(
+					'/control_arduino/1',
+					function(data){
+						$('#command').val(data.cmd);
+					}
+				);
+			});
+			
+			<!-- 幫id為btn11的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn11').click(function(){
+				$.post(
+					'/control_arduino/2',
+					function(data){
+						$('#command').val(data.cmd);
+					}
+				);
+			});
+			
+			<!-- 幫id為btn12的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn12').click(function(){
+				$.post(
+					'/control_arduino/3',
+					function(data){
+						$('#command').val(data.cmd);
+					}
+				);
+			});
+			
+			<!-- 幫id為btn13的按鈕標籤註冊了點擊事件的處理方法 -->
+			$('#btn13').click(function(){
+				$.post(
+					'/control_arduino/4',
+					function(data){
+						$('#command').val(data.cmd);
+						$('#temperature').val(data.value1);
+						$('#humidity').val(data.value2);
+					}
+				);
+			});
+			
+		})
+	</script>
+	<style>
+		input {font-size:12px}
+	</style>
+</head>
+<!---->
+<!-- body為網頁的內容，也就是呈現使用者介面UI的地方 -->
+<!---->
+<body class="bg-warning">
+<nav  style="font-family:Microsoft JhengHei">
+<div class="container">
+	
+	<!-- 設定接收警訊人員Email UI -->
+	<center>
+	<h3 class="text-danger"><b>設定接收警訊人員Email</b> </h3>
+	<h4>
+		<label for="emails" class="text-primary"><b>輸入Email：</b></label>
+		<input type="email" id="email" size="25" value="ddcop5120@gmail.com" style="font-size:16px">
+		<button id="btn1" class="btn btn-success btn-lg"><b>儲存</b></button>
+		<label for="email_status" class="text-primary"><b>電郵清單：</b></label>
+		<input type="text" id="email_status" size="54" style="font-size:16px" readonly="true">
+	</h4>
+
+	</center>
+	
+	<!-- 操作與顯示即時影像串流UI -->
+	<center>
+		<h3 class="text-danger"><b>操作與顯示即時影像串流UI</b> </h3>
+		<button id="btn2" class="btn btn-success btn-lg">啟動即時影像串流</b></button>
+		<button id="btn3" class="btn btn-success btn-lg">關閉即時影像串流</b></button> 
+		<button id="btn4" class="btn btn-danger btn-lg">拍照</b></button><br>
+		<img id="streaming" width="430" height="320" style="border-style: solid;border-width: 5px 5px 5px 5px" alt="No Video Streaming Available!">
+	</center>
+		
+	<!-- 控制LED燈 UI -->
+	
+
+	<!-- 回首頁按鈕 -->
+	
+</div>
+<script>
+	// 建立影像串流伺服器網址
+	// 請將此URL改為http://IP_RPi:8000/stream.mjpg';
+	// 例如IP of PRi = 10.0.2.103，則URL=http://10.0.2.103:8000/stream.mjpg';
+	var web_video_streaming_url = 'http://172.20.10.5:8000/stream.mjpg';
+	// 取得顯示即時影像串流之元素(element)
+	var streamingelement = document.getElementById("streaming");
+	
+	// 顯示影像串流副程式
+	function loadstreaming()
+	{
+		streamingelement.src = window.web_video_streaming_url;
+	}
+	
+	// 不要顯示影像串流副程式
+	function offloadstreaming()
+	{
+		streamingelement.src = "";
+	}
+	
+	// 讓網頁載入時顯示影像串流
+	loadstreaming();    
+</script>
+</body>
+	</nav>
+</html>

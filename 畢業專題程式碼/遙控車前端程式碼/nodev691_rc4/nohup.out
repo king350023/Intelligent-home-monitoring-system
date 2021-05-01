@@ -1,0 +1,126 @@
+(node) v8::ObjectTemplate::Set() with non-primitive values is deprecated
+(node) and will stop working in the next major release.
+
+==== JS stack trace =========================================
+
+Security context: 0x5e57c305 <JS Object>#0#
+    1: .node [module.js:597] [pc=0x43df33a4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x2b990b01 <a Module with map 0x45d0e2f9>#2#,filename=0x2b98fe25 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    2: load [module.js:487] [pc=0x43d4aa18] (this=0x2b990b01 <a Module with map 0x45d0e2f9>#2#,filename=0x2b98fe25 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    3: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x2b990b01 <a Module with map 0x45d0e2f9>#2#,filename=0x2b98fe25 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    4: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x2b98f5a1 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>,parent=0x2b985dad <a Module with map 0x45d0e2f9>#4#,isMain=0x5e508139 <false>)
+    5: require [module.js:~494] [pc=0x43dbf364] (this=0x2b985dad <a Module with map 0x45d0e2f9>#4#,path=0x2b98f5a1 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    6: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x2b98f5a1 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    7: bindings [/home/pi/nodejs_rc2/node_modules/bindings/bindings.js:76] [pc=0x43df0854] (this=0x5dc832a5 <JS Global Object>#5#,opts=0x5f7a56f9 <String[15]: serialport.node>)
+    8: /* anonymous */ [/home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js:3] [pc=0x43def1e4] (this=0x2b980099 <an Object with map 0x4e709b4d>#6#,exports=0x2b980099 <an Object with map 0x4e709b4d>#6#,require=0x2b980f35 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#7#,module=0x2b980071 <a Module with map 0x45d0e2f9>#8#,__filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>,__dirname=0x2b980f01 <String[47]: /home/pi/nodejs_rc2/node_modules/serialport/lib>)
+    9: _compile [module.js:570] [pc=0x43d54e64] (this=0x2b980071 <a Module with map 0x45d0e2f9>#8#,content=0x2b9806b9 <String[784]\: 'use strict';\n\nvar bindings = require('bindings')('serialport.node');\nvar listUnix = require('./list-unix');\n\nvar linux = process.platform !== 'win32' && process.platform !== 'darwin';\n\nfunction listLinux(callback) {\n  callback = callback || function(err) {\n    if (err) { this.emit('error', err) }\n  }.bind(this);\n  return listUnix(callback);\n};\n\nvar platformOptions = {};\nif (process.platform !== 'win32') {\n  platformOptions = {\n    vmin: 1,\n    vtime: 0\n  };\n}\n\nmodule.exports = {\n  close: bindings.close,\n  drain: bindings.drain,\n  flush: bindings.flush,\n  list: linux ? listLinux : bindings.list,\n  open: bindings.open,\n  SerialportPoller: bindings.SerialportPoller,\n  set: bindings.set,\n  update: bindings.update,\n  write: bindings.write,\n  platformOptions: platformOptions\n};\n>,filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>)
+   10: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x2b980071 <a Module with map 0x45d0e2f9>#8#,filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>)
+   11: load [module.js:487] [pc=0x43d4aa18] (this=0x2b980071 <a Module with map 0x45d0e2f9>#8#,filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>)
+   12: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x2b980071 <a Module with map 0x45d0e2f9>#8#,filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>)
+   13: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5f797bb9 <String[10]: ./bindings>,parent=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,isMain=0x5e508139 <false>)
+   14: require [module.js:~494] [pc=0x43dbf364] (this=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,path=0x5f797bb9 <String[10]: ./bindings>)
+   15: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x5f797bb9 <String[10]: ./bindings>)
+   16: /* anonymous */ [/home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js:16] [pc=0x43ddee34] (this=0x2b93291d <an Object with map 0x4e709b4d>#10#,exports=0x2b93291d <an Object with map 0x4e709b4d>#10#,require=0x2b93a211 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#11#,module=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,__filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>,__dirname=0x2b93a1dd <String[47]: /home/pi/nodejs_rc2/node_modules/serialport/lib>)
+   17: _compile [module.js:570] [pc=0x43d54e64] (this=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,content=0x2b93301d <Very long string[13557]>#12#,filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>)
+   18: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>)
+   19: load [module.js:487] [pc=0x43d4aa18] (this=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>)
+   20: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>)
+   21: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5f7936cd <String[10]: serialport>,parent=0x2b921359 <a Module with map 0x45d0e2f9>#13#,isMain=0x5e508139 <false>)
+   22: require [module.js:~494] [pc=0x43dbf364] (this=0x2b921359 <a Module with map 0x45d0e2f9>#13#,path=0x5f7936cd <String[10]: serialport>)
+   23: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x5f7936cd <String[10]: serialport>)
+   24: /* anonymous */ [/home/pi/nodejs_rc2/routes/index.js:9] [pc=0x43dda55c] (this=0x2b921381 <an Object with map 0x4e709b4d>#14#,exports=0x2b921381 <an Object with map 0x4e709b4d>#14#,require=0x2b92ba01 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#15#,module=0x2b921359 <a Module with map 0x45d0e2f9>#13#,__filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>,__dirname=0x2b92b9cd <String[26]: /home/pi/nodejs_rc2/routes>)
+   25: _compile [module.js:570] [pc=0x43d54e64] (this=0x2b921359 <a Module with map 0x45d0e2f9>#13#,content=0x2b921965 <Very long string[10057]>#16#,filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>)
+   26: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x2b921359 <a Module with map 0x45d0e2f9>#13#,filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>)
+   27: load [module.js:487] [pc=0x43d4aa18] (this=0x2b921359 <a Module with map 0x45d0e2f9>#13#,filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>)
+   28: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x2b921359 <a Module with map 0x45d0e2f9>#13#,filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>)
+   29: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5dc45441 <String[14]: ./routes/index>,parent=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,isMain=0x5e508139 <false>)
+   30: require [module.js:~494] [pc=0x43dbf364] (this=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,path=0x5dc45441 <String[14]: ./routes/index>)
+   31: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x5dc45441 <String[14]: ./routes/index>)
+   32: /* anonymous */ [/home/pi/nodejs_rc2/app.js:10] [pc=0x43d58fd8] (this=0x5dc80939 <an Object with map 0x4e709b4d>#18#,exports=0x5dc80939 <an Object with map 0x4e709b4d>#18#,require=0x5dc808b5 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#19#,module=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,__filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>,__dirname=0x5dc808fd <String[19]: /home/pi/nodejs_rc2>)
+   33: _compile [module.js:570] [pc=0x43d54e64] (this=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,content=0x5dc81009 <Very long string[1621]>#20#,filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>)
+   34: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>)
+   35: load [module.js:487] [pc=0x43d4aa18] (this=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>)
+   36: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>)
+   37: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5dc43929 <String[6]: ../app>,parent=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,isMain=0x5e508139 <false>)
+   38: require [module.js:~494] [pc=0x43d560d8] (this=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,path=0x5dc43929 <String[6]: ../app>)
+   39: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x5dc43929 <String[6]: ../app>)
+   40: /* anonymous */ [/home/pi/nodejs_rc2/bin/www:7] [pc=0x43d553a0] (this=0x5dc817d9 <an Object with map 0x4e709b4d>#22#,exports=0x5dc817d9 <an Object with map 0x4e709b4d>#22#,require=0x5dc816c5 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#23#,module=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,__filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>,__dirname=0x5dc8179d <String[23]: /home/pi/nodejs_rc2/bin>)
+   41: _compile [module.js:570] [pc=0x43d54e64] (this=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,content=0x5dc81e81 <Very long string[1581]>#24#,filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>)
+   42: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>)
+   43: load [module.js:487] [pc=0x43d4aa18] (this=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>)
+   44: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>)
+   45: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5dc3c36d <String[27]: /home/pi/nodejs_rc2/bin/www>,parent=0x5e508101 <null>,isMain=0x5e508201 <true>)
+   46: /* anonymous */(aka /* anonymous */) [module.js:604] [pc=0x43d3bdd8] (this=0x5e5081d9 <undefined>)
+   47: run(aka run) [bootstrap_node.js:390] [pc=0x43d3bc24] (this=0x5e5081d9 <undefined>,entryFunction=0x5dc3b0cd <JS Function Module.runMain (SharedFunctionInfo 0x5dc25439)>#25#)
+   48: startup(aka startup) [bootstrap_node.js:150] [pc=0x74b475d0] (this=0x5e5081d9 <undefined>)
+   49: /* anonymous */(aka /* anonymous */) [bootstrap_node.js:505] [pc=0x74b45118] (this=0x5e508101 <null>,process=0x5dc82629 <a process with map 0x4e70ec15>#26#)
+=====================
+
+
+==== C stack trace ===============================
+
+(empty)
+(node) v8::ObjectTemplate::Set() with non-primitive values is deprecated
+(node) and will stop working in the next major release.
+
+==== JS stack trace =========================================
+
+Security context: 0x5e57c305 <JS Object>#0#
+    1: .node [module.js:597] [pc=0x43df33a4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x2b990b01 <a Module with map 0x45d0e2f9>#2#,filename=0x2b98fe25 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    2: load [module.js:487] [pc=0x43d4aa18] (this=0x2b990b01 <a Module with map 0x45d0e2f9>#2#,filename=0x2b98fe25 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    3: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x2b990b01 <a Module with map 0x45d0e2f9>#2#,filename=0x2b98fe25 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    4: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x2b98f5a1 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>,parent=0x2b985dad <a Module with map 0x45d0e2f9>#4#,isMain=0x5e508139 <false>)
+    5: require [module.js:~494] [pc=0x43dbf364] (this=0x2b985dad <a Module with map 0x45d0e2f9>#4#,path=0x2b98f5a1 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    6: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x2b98f5a1 <String[73]: /home/pi/nodejs_rc2/node_modules/serialport/build/Release/serialport.node>)
+    7: bindings [/home/pi/nodejs_rc2/node_modules/bindings/bindings.js:76] [pc=0x43df0854] (this=0x5dc832a5 <JS Global Object>#5#,opts=0x5f7a56f9 <String[15]: serialport.node>)
+    8: /* anonymous */ [/home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js:3] [pc=0x43def1e4] (this=0x2b980099 <an Object with map 0x4e709b4d>#6#,exports=0x2b980099 <an Object with map 0x4e709b4d>#6#,require=0x2b980f35 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#7#,module=0x2b980071 <a Module with map 0x45d0e2f9>#8#,__filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>,__dirname=0x2b980f01 <String[47]: /home/pi/nodejs_rc2/node_modules/serialport/lib>)
+    9: _compile [module.js:570] [pc=0x43d54e64] (this=0x2b980071 <a Module with map 0x45d0e2f9>#8#,content=0x2b9806b9 <String[784]\: 'use strict';\n\nvar bindings = require('bindings')('serialport.node');\nvar listUnix = require('./list-unix');\n\nvar linux = process.platform !== 'win32' && process.platform !== 'darwin';\n\nfunction listLinux(callback) {\n  callback = callback || function(err) {\n    if (err) { this.emit('error', err) }\n  }.bind(this);\n  return listUnix(callback);\n};\n\nvar platformOptions = {};\nif (process.platform !== 'win32') {\n  platformOptions = {\n    vmin: 1,\n    vtime: 0\n  };\n}\n\nmodule.exports = {\n  close: bindings.close,\n  drain: bindings.drain,\n  flush: bindings.flush,\n  list: linux ? listLinux : bindings.list,\n  open: bindings.open,\n  SerialportPoller: bindings.SerialportPoller,\n  set: bindings.set,\n  update: bindings.update,\n  write: bindings.write,\n  platformOptions: platformOptions\n};\n>,filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>)
+   10: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x2b980071 <a Module with map 0x45d0e2f9>#8#,filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>)
+   11: load [module.js:487] [pc=0x43d4aa18] (this=0x2b980071 <a Module with map 0x45d0e2f9>#8#,filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>)
+   12: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x2b980071 <a Module with map 0x45d0e2f9>#8#,filename=0x2b97f8cd <String[59]: /home/pi/nodejs_rc2/node_modules/serialport/lib/bindings.js>)
+   13: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5f797bb9 <String[10]: ./bindings>,parent=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,isMain=0x5e508139 <false>)
+   14: require [module.js:~494] [pc=0x43dbf364] (this=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,path=0x5f797bb9 <String[10]: ./bindings>)
+   15: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x5f797bb9 <String[10]: ./bindings>)
+   16: /* anonymous */ [/home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js:16] [pc=0x43ddee34] (this=0x2b93291d <an Object with map 0x4e709b4d>#10#,exports=0x2b93291d <an Object with map 0x4e709b4d>#10#,require=0x2b93a211 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#11#,module=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,__filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>,__dirname=0x2b93a1dd <String[47]: /home/pi/nodejs_rc2/node_modules/serialport/lib>)
+   17: _compile [module.js:570] [pc=0x43d54e64] (this=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,content=0x2b93301d <Very long string[13557]>#12#,filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>)
+   18: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>)
+   19: load [module.js:487] [pc=0x43d4aa18] (this=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>)
+   20: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x2b9328f5 <a Module with map 0x45d0e2f9>#9#,filename=0x2b9319e9 <String[61]: /home/pi/nodejs_rc2/node_modules/serialport/lib/serialport.js>)
+   21: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5f7936cd <String[10]: serialport>,parent=0x2b921359 <a Module with map 0x45d0e2f9>#13#,isMain=0x5e508139 <false>)
+   22: require [module.js:~494] [pc=0x43dbf364] (this=0x2b921359 <a Module with map 0x45d0e2f9>#13#,path=0x5f7936cd <String[10]: serialport>)
+   23: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x5f7936cd <String[10]: serialport>)
+   24: /* anonymous */ [/home/pi/nodejs_rc2/routes/index.js:9] [pc=0x43dda55c] (this=0x2b921381 <an Object with map 0x4e709b4d>#14#,exports=0x2b921381 <an Object with map 0x4e709b4d>#14#,require=0x2b92ba01 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#15#,module=0x2b921359 <a Module with map 0x45d0e2f9>#13#,__filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>,__dirname=0x2b92b9cd <String[26]: /home/pi/nodejs_rc2/routes>)
+   25: _compile [module.js:570] [pc=0x43d54e64] (this=0x2b921359 <a Module with map 0x45d0e2f9>#13#,content=0x2b921965 <Very long string[10057]>#16#,filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>)
+   26: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x2b921359 <a Module with map 0x45d0e2f9>#13#,filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>)
+   27: load [module.js:487] [pc=0x43d4aa18] (this=0x2b921359 <a Module with map 0x45d0e2f9>#13#,filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>)
+   28: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x2b921359 <a Module with map 0x45d0e2f9>#13#,filename=0x2b920a6d <String[35]: /home/pi/nodejs_rc2/routes/index.js>)
+   29: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5dc45441 <String[14]: ./routes/index>,parent=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,isMain=0x5e508139 <false>)
+   30: require [module.js:~494] [pc=0x43dbf364] (this=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,path=0x5dc45441 <String[14]: ./routes/index>)
+   31: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x5dc45441 <String[14]: ./routes/index>)
+   32: /* anonymous */ [/home/pi/nodejs_rc2/app.js:10] [pc=0x43d58fd8] (this=0x5dc80939 <an Object with map 0x4e709b4d>#18#,exports=0x5dc80939 <an Object with map 0x4e709b4d>#18#,require=0x5dc808b5 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#19#,module=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,__filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>,__dirname=0x5dc808fd <String[19]: /home/pi/nodejs_rc2>)
+   33: _compile [module.js:570] [pc=0x43d54e64] (this=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,content=0x5dc81009 <Very long string[1621]>#20#,filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>)
+   34: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>)
+   35: load [module.js:487] [pc=0x43d4aa18] (this=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>)
+   36: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x5dc8086d <a Module with map 0x45d0e2f9>#17#,filename=0x5dc80911 <String[26]: /home/pi/nodejs_rc2/app.js>)
+   37: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5dc43929 <String[6]: ../app>,parent=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,isMain=0x5e508139 <false>)
+   38: require [module.js:~494] [pc=0x43d560d8] (this=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,path=0x5dc43929 <String[6]: ../app>)
+   39: require(aka require) [internal/module.js:20] [pc=0x43d55dac] (this=0x5e5081d9 <undefined>,path=0x5dc43929 <String[6]: ../app>)
+   40: /* anonymous */ [/home/pi/nodejs_rc2/bin/www:7] [pc=0x43d553a0] (this=0x5dc817d9 <an Object with map 0x4e709b4d>#22#,exports=0x5dc817d9 <an Object with map 0x4e709b4d>#22#,require=0x5dc816c5 <JS Function require (SharedFunctionInfo 0x5dc4408d)>#23#,module=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,__filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>,__dirname=0x5dc8179d <String[23]: /home/pi/nodejs_rc2/bin>)
+   41: _compile [module.js:570] [pc=0x43d54e64] (this=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,content=0x5dc81e81 <Very long string[1581]>#24#,filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>)
+   42: .js [module.js:579] [pc=0x43d4c3f4] (this=0x5dc782fd <an Object with map 0x45d0d8d5>#1#,module=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>)
+   43: load [module.js:487] [pc=0x43d4aa18] (this=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>)
+   44: tryModuleLoad(aka tryModuleLoad) [module.js:446] [pc=0x43d4a508] (this=0x5e5081d9 <undefined>,module=0x5dc8167d <a Module with map 0x45d0e2f9>#21#,filename=0x5dc817b1 <String[27]: /home/pi/nodejs_rc2/bin/www>)
+   45: _load [module.js:438] [pc=0x43d3c374] (this=0x5dc782d9 <JS Function Module (SharedFunctionInfo 0x5dc24b51)>#3#,request=0x5dc3c36d <String[27]: /home/pi/nodejs_rc2/bin/www>,parent=0x5e508101 <null>,isMain=0x5e508201 <true>)
+   46: /* anonymous */(aka /* anonymous */) [module.js:604] [pc=0x43d3bdd8] (this=0x5e5081d9 <undefined>)
+   47: run(aka run) [bootstrap_node.js:390] [pc=0x43d3bc24] (this=0x5e5081d9 <undefined>,entryFunction=0x5dc3b0cd <JS Function Module.runMain (SharedFunctionInfo 0x5dc25439)>#25#)
+   48: startup(aka startup) [bootstrap_node.js:150] [pc=0x74b475d0] (this=0x5e5081d9 <undefined>)
+   49: /* anonymous */(aka /* anonymous */) [bootstrap_node.js:505] [pc=0x74b45118] (this=0x5e508101 <null>,process=0x5dc82629 <a process with map 0x4e70ec15>#26#)
+=====================
+
+
+==== C stack trace ===============================
+
+(empty)
+Server IP=192.168.0.111
+The wvs-status.txt is created!
+The wvs-pid.txt is created!
+Port 3000 is already in use

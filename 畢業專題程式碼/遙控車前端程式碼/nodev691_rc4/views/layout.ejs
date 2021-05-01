@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html> 
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 1系統後面2系統3條列 -->
+	<style>
+	.navbar {
+		background-color: 
+#FFFFFF !important;
+	}
+	
+	.navbar .navbar-brand {
+		color:#CC6600  !important;
+		font-size: 24px;
+		font-weight:bold;
+	}
+
+	.navbar li a {
+		color:#000000  !important;
+				font-size: 20px;
+		font-weight:bold;
+	}
+
+	.navbar-nav li a:hover, .navbar-nav li.active a {
+		color: #f4511e !important;
+		background-color: #fff !important;
+	}
+
+	.navbar-default .navbar-toggle {
+		border-color: ;
+		color: 	#000000 !important;
+	} 
+	</style>
+
+</head>
+<body>
+<nav class="navbar navbar-default" style="font-family:Microsoft JhengHei">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">智能家庭監控系統</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+	   <li><a id="home">首頁</a></li>
+	   <li><a id="weather">天氣查詢服務</a></li>
+	   <li><a id="data_collection">居家即時溫溼度感應</a></li>
+        <li><a id="air">居家空氣危害檢測</a></li>
+	  <li><a id="remotecontrol">居家防盜警報</a></li>
+	   <li><a id="voice">智能語音家電開關</a></li>
+	   <li><a id="callserviceapis">監視遙控車</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--語法中的 id 是必要項目，少了這個項目則 JavaScript 就不知道要取得哪個元素囉！另外要附帶一提的是 document.getElementById 會取得網頁中該 id 的第一個元素，也就是當你的頁面中有相當多一樣的 id，則只有第一個會被取得。    script位置?-->
+<script>
+	var home_element = document.getElementById("home");
+	home_element.href = '/';
+
+    var air_element = document.getElementById("air");
+	air_element.href = '/air';
+	
+    var callserviceapis_element = document.getElementById("callserviceapis");
+	callserviceapis_element.href = '/callserviceapis';
+
+	var weather_element = document.getElementById("weather");
+	weather_element.href =  '/weather';
+
+	var data_collection_query_element = document.getElementById("data_collection");
+	data_collection_query_element.href = '/data_collection';
+
+	var remotecontrol_element = document.getElementById("remotecontrol");
+	remotecontrol_element.href = '/remotecontrol';
+
+	var voice_element = document.getElementById("voice");
+	voice_element.href = '/voice';
+
+</script>
+
+</body>
+
+<%- body %>
+	

@@ -1,0 +1,156 @@
+<!DOCTYPE html> 
+
+<html> 
+<head> 
+	<title>查詢天氣服務</title> 
+	<!-- 以下這5行是引用bootstrap及jquery CDN (Content Delivery Network)的標準動作 -->
+	 <meta charset="utf-8"> <!-- 指定內文的編碼，若要顯示中文，通常用utf-8這個unicode編碼 -->
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  
+	<!-- 以下是引用Hightcharts之CDN -->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	
+	<!-- 以下這個匿名函數是jquery的ready事件處理方法，當網頁Ready好的就會自動執行 -->
+	<!-- 因此，可以把要註冊的所有事件處理函數及需要先執行的命令放在這個函數內 -->
+	<script>
+		$(function(){
+		    <!-- 幫id為btn1的按鈕標籤註冊了點擊事件的處理方法  在jquery及nodejs通常會使用匿名函數作為事件處理方法，比較簡潔 -->
+			$('#btn1').click(function(){
+				$.post(
+					'/weather/' + $('#selectedcity').val(),
+					function(data){
+						$('#city').val(data.city);
+						$('#temp').val(data.degreeC);
+					    $('#humid').val(data.humidity);
+						$('#condition').val(data.condition);
+						$('#date').val(data.date);
+						
+						var htemps = new Array();
+						var ltemps = new Array();
+						for (i=0; i< data.high.length; i++)
+						{
+							htemps[i] = Number(data.high[i]);
+							ltemps[i] = Number(data.low[i]);
+						}
+						plotcharts(htemps, ltemps);
+			
+					}
+				);
+			});
+			
+			
+		
+			
+			function plotcharts(htemps, ltemps)
+			{
+				// 繪製Highcharts圖測試
+				Highcharts.chart('container', {
+					chart: {
+						type: 'line'
+					},
+					legend: {
+						itemStyle: {
+							font: '20pt 標楷體',
+							color: '#222'
+						},
+						itemHoverStyle: {
+							color: 'red'
+						},
+						itemHiddenStyle: {
+							color: '#444'
+						}
+					},
+					title: {
+						text: '未來10天天氣預報',
+						style: {color:'red', fontSize: '30px', fontFamily: '標楷體'}
+					},
+					subtitle: {
+						text: '資料來源：Yahoo Weather Report',
+						style: {color:'red', fontSize: '20px', fontFamily: '標楷體'}
+					},
+					xAxis: {
+						categories: ['第1天','第2天','第3天','第4天','第5天','第6天','第7天','第8天','第9天','第10天'],
+						labels: {
+							style: {color:'green', fontSize: '16px', fontFamily: '標楷體'}
+						}
+					},
+					yAxis: {
+						title: {
+							text: '溫度(°C)',
+							style: {color:'blue', fontSize: '20px', fontFamily: '標楷體'}
+						}
+					},
+					plotOptions: {
+						line: {
+							dataLabels: {
+								enabled: true
+							},
+							enableMouseTracking: true
+						}
+					},
+					series: [{
+						name: '高溫',
+						style: {fontSize: '30px', fontFamily: '標楷體'},
+						data: htemps
+					}, {
+						name: '低溫',
+						style: {fontSize: '30px', fontFamily: '標楷體'},
+						data: ltemps
+					}]
+				});
+			}
+
+			//		
+		})
+	</script>
+</head>
+<body class="bg-success">
+	<nav style="font-family:Microsoft JhengHei">
+<div class="container">
+	
+	<center>
+	<h3 class="text-danger"><b>天氣查詢服務</b></h3>
+	<div> 
+	<h4>
+		<form>
+			<div class="form-group">
+			<label for="selectedcity" class="text-dark">請選擇城市:</label>
+			<select id="selectedcity">
+				<option value="2306179" selected>台北市</option>
+				<option value="2306180">高雄市</option>
+				<option value="2306181">台中市</option>
+				<option value="2306182">台南市</option>
+				<option value="2306183">彰化市</option>
+				<option value="2306184">桃園市</option>
+				<option value="2306185">新竹市</option>
+				<option value="1118370">東京市</option>
+				<option value="2151330">北京市</option>
+				<option value="2151849">上海市</option>
+				<option value="12685729">福州市</option>
+		    </select>
+			</div>
+		</form>
+		<b class="text-primary">城市:</b> <input type="text" id="city"> <br/>
+		<b class="text-primary">溫度:</b> <input type="text" id="temp"> <br/>
+		<b class="text-primary">濕度:</b> <input type="text" id="humid"><br/>
+		<b class="text-primary">天氣:</b> <input type="text" id="condition"><br/>
+		<b class="text-primary">時間:</b> <input type="text" id="date"><br/>
+		<button id="btn1" class="btn btn-success btn-md">查詢天氣</button>
+	</h4>
+	</div>
+	</center>
+	
+
+	<center>
+
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</center>
+	
+</div>
+</nav>
+</body>
+</html>

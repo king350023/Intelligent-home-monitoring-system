@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html> 
+
+<head> 
+	<title>專案首頁</title>
+	<!-- 以下這5行是引用bootstrap及jquery CDN (Content Delivery Network)的標準動作 --><!-- 指定內文的編碼，若要顯示中文，通常用utf-8這個unicode編碼 -->
+	 <meta charset="utf-8"> 
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  
+	<!-- 以下這個匿名函數是jquery的ready事件處理方法，當網頁Ready好的就會自動執行 -->
+	<!-- 因此，可以把要註冊的所有事件處理函數及需要先執行的命令放在這個函數內 -->
+	<!-- 幫id為btn的按鈕標籤註冊了點擊事件的處理方法   在jquery及nodejs通常會使用匿名函數作為事件處理方法，比較簡潔 -->
+	<!-- click 事件通常會在設備的按鈕（通常是滑鼠按鍵）點擊元素時執行。 window.location.href-頁面跳轉 function相同輸入不可以對應到相異輸出。-->
+
+	<script>
+		$(function(){
+		    
+			$('#btn1').click(function(){
+			    window.location.href = '/air';
+			});
+			
+			$('#btn2').click(function(){
+				window.location.href = '/callserviceapis';
+			});
+			
+			$('#btn3').click(function(){
+				 window.location.href = '/weather';
+			});
+			
+			$('#btn4').click(function(){
+				 window.location.href = '/remotecontrol';
+			});
+
+			$('#btn5').click(function(){
+			    window.location.href = '/data_collection';
+			});
+			$('#btn6').click(function(){
+			    window.location.href = '/voice';
+			});
+		})
+	</script>
+
+
+
+<body class="bg-success">
+<div class="container">
+	<!-- center置中 用 DIV 標籤包起來的東西，瀏覽器會視為一個物件，大致長成這樣 <div>內容</div>，你可以用 div 將網頁內容的各區塊包起來，再去做 CSS 排板，目前所有的主流瀏覽器都支援 DIV 標籤。ID是唯一性的、不可重覆的 Class是可被拿來被重覆使用的 container??   <b>粗體-->
+	<Center style="font-family:Microsoft JhengHei">
+	<h1 class="text-dark"><b>系統首頁</b></h1>
+	<h2 align="left">
+	<aside>
+	<nav> 
+		<ul>
+		<li><button id="btn3" class="btn bg-success text-danger btn-lg"><b>天氣查詢服務</b></button></li>
+		<li><button id="btn5" class="btn bg-success text-danger btn-lg"><b>居家即時溫溼度感應</b></button></li>
+		<li><button id="btn1" class="btn bg-success text-danger btn-lg"><b>居家空氣危害檢測</b></button></li>
+		<li><button id="btn4" class="btn bg-success text-danger btn-lg"><b>居家防盜警報</b></button></li>
+		<li><button id="btn6" class="btn bg-success text-danger btn-lg"><b>智能語音家電開關</b></button></li>
+		<li><button id="btn2" class="btn bg-success text-danger btn-lg"><b>監視遙控車</b></button></li>
+		<div style="top:150px;left:420px;position:absolute;">
+		<img " src="/images/index.jpg" class="imgIndex" style="border-style: solid;border-width: 5px 5px 5px 5px" " width="600 " height="450"></a>
+	    </div>
+	    </ul>
+	</nav>
+	</aside>
+    </h2>
+	</center>
+	
+</div>
+
+</body>
+</html>
